@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/punch.wav-c793f01a25c21f7b2267a2c97ad64b0e.sample"
+
+[deps]
+
+source_file="res://audio/sounds/punch.wav"
+dest_files=[ "res://.import/punch.wav-c793f01a25c21f7b2267a2c97ad64b0e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

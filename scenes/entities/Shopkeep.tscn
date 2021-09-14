@@ -1,0 +1,154 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://assets/shopkeep/knife.png" type="Texture" id=1]
+[ext_resource path="res://assets/shopkeep/jacket.png" type="Texture" id=2]
+[ext_resource path="res://assets/shopkeep/head.png" type="Texture" id=3]
+[ext_resource path="res://assets/shopkeep/grenade.png" type="Texture" id=4]
+[ext_resource path="res://assets/shopkeep/keeper.png" type="Texture" id=5]
+[ext_resource path="res://assets/shopkeep/hat.png" type="Texture" id=6]
+[ext_resource path="res://assets/shopkeep/cairrage.png" type="Texture" id=7]
+[ext_resource path="res://scripts/Shopkeep.gd" type="Script" id=8]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 4.0
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=3]
+resource_name = "default"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 9, 1 ), Vector2( 9, 0.8 ), Vector2( 9, 1.3 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "default"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.86148 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, -4 ), Vector2( 1, -3.5 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "default"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, -1 ), Vector2( 8, -1.5 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "default"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 7, 4 ), Vector2( 7, 4.5 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "default"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 12, 1 ), Vector2( 12, 0.4 ) ]
+}
+
+[node name="shopkeep" type="KinematicBody2D"]
+script = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+
+[node name="cairrage" type="Sprite" parent="."]
+position = Vector2( 16, -16 )
+texture = ExtResource( 7 )
+
+[node name="Jacket" type="Sprite" parent="."]
+position = Vector2( 9, 1.00015 )
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Jacket"]
+anims/default = SubResource( 3 )
+
+[node name="Hat" type="Sprite" parent="."]
+position = Vector2( 1, -3.91516 )
+texture = ExtResource( 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Hat"]
+anims/default = SubResource( 4 )
+
+[node name="Knife" type="Sprite" parent="."]
+position = Vector2( 8, -1.08085 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Knife"]
+anims/default = SubResource( 5 )
+
+[node name="Grenade" type="Sprite" parent="."]
+position = Vector2( 7, 4.29086 )
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Grenade"]
+anims/default = SubResource( 6 )
+
+[node name="Head" type="Sprite" parent="."]
+position = Vector2( 12, 0.556199 )
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Head"]
+anims/default = SubResource( 7 )

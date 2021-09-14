@@ -1,0 +1,19 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/Resource.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/resource/tree.png" type="Texture" id=2]
+[ext_resource path="res://scenes/items/Stick.tscn" type="PackedScene" id=3]
+[ext_resource path="res://audio/sounds/chop.wav" type="AudioStream" id=4]
+[ext_resource path="res://audio/sounds/leaves.wav" type="AudioStream" id=5]
+[ext_resource path="res://audio/sounds/crack.wav" type="AudioStream" id=6]
+
+[node name="Tree" type="Node2D"]
+
+[node name="Resource" parent="." instance=ExtResource( 1 )]
+RESOURCE_NAME = "Tree"
+RESOURCE_TEXTURES = [ ExtResource( 2 ) ]
+RESOURCE_ITEMS = [ ExtResource( 3 ) ]
+RESOURCE_HIT_SOUNDS = [ ExtResource( 4 ), ExtResource( 5 ) ]
+RESOURCE_BREAK_SOUNDS = [ ExtResource( 6 ) ]
+RESOURCE_WINDY_ANIMATION = true
+RESOURCE_TEXTURE_OFFSET = Vector2( 0, -8 )

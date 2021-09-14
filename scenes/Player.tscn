@@ -1,0 +1,220 @@
+[gd_scene load_steps=33 format=2]
+
+[ext_resource path="res://scripts/singletons/2dMovementInput.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Light.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/player/Hat.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/tools/PlayerTool.gd" type="Script" id=5]
+[ext_resource path="res://godot/animations/Sparkle3.tres" type="SpriteFrames" id=6]
+[ext_resource path="res://assets/player/player.png" type="Texture" id=7]
+[ext_resource path="res://scripts/singletons/2dMovement.gd" type="Script" id=8]
+[ext_resource path="res://godot/animations/Sparkle1.tres" type="SpriteFrames" id=9]
+[ext_resource path="res://scripts/Camera2D.gd" type="Script" id=10]
+[ext_resource path="res://audio/sounds/swang.wav" type="AudioStream" id=11]
+[ext_resource path="res://audio/sounds/step.wav" type="AudioStream" id=12]
+[ext_resource path="res://assets/blocks/select.png" type="Texture" id=13]
+[ext_resource path="res://godot/animations/Sparkle2.tres" type="SpriteFrames" id=14]
+[ext_resource path="res://audio/sounds/book.wav" type="AudioStream" id=15]
+[ext_resource path="res://audio/sounds/talk22.wav" type="AudioStream" id=16]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 7 )
+region = Rect2( 8, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 7 )
+region = Rect2( 16, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 7 )
+region = Rect2( 24, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 7 )
+region = Rect2( 32, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 7 )
+region = Rect2( 40, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 7 )
+region = Rect2( 48, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 7 )
+region = Rect2( 56, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 7 )
+region = Rect2( 64, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 7 )
+region = Rect2( 72, 0, 8, 8 )
+
+[sub_resource type="SpriteFrames" id=12]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "walk",
+"speed": 15.0
+} ]
+
+[sub_resource type="Animation" id=13]
+resource_name = "default"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.2 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "walk"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.2 ]
+}
+
+[sub_resource type="CircleShape2D" id=15]
+radius = 3.36231
+
+[sub_resource type="Animation" id=16]
+length = 1.572
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, true, true ]
+}
+
+[node name="player_1" type="KinematicBody2D" groups=[
+"damagable",
+"player",
+]]
+visible = false
+script = ExtResource( 2 )
+
+[node name="Movement" type="Node2D" parent="."]
+script = ExtResource( 8 )
+SPEED = 40
+
+[node name="Input" type="Node2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 1.1, 1.1 )
+process_mode = 0
+smoothing_enabled = true
+smoothing_speed = 10.0
+script = ExtResource( 10 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 12 )
+playing = true
+
+[node name="Decals" type="Node2D" parent="."]
+
+[node name="Light2D" parent="Decals" instance=ExtResource( 3 )]
+energy = 0.4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Decals/Light2D"]
+anims/default = SubResource( 13 )
+anims/walk = SubResource( 14 )
+
+[node name="Hat" parent="Decals" instance=ExtResource( 4 )]
+
+[node name="select" type="Sprite" parent="Decals"]
+visible = false
+texture = ExtResource( 13 )
+
+[node name="Display" type="Sprite" parent="Decals"]
+visible = false
+position = Vector2( 0, -16 )
+
+[node name="AnimatedSprite_Sparkle1" type="AnimatedSprite" parent="Decals/Display"]
+position = Vector2( -2, 2 )
+z_index = 2
+frames = ExtResource( 9 )
+frame = 6
+playing = true
+
+[node name="AnimatedSprite_Sparkle2" type="AnimatedSprite" parent="Decals/Display"]
+position = Vector2( 1, -2 )
+z_index = 2
+frames = ExtResource( 14 )
+frame = 19
+playing = true
+
+[node name="AnimatedSprite_Sparkle3" type="AnimatedSprite" parent="Decals/Display"]
+position = Vector2( 3, 3 )
+z_index = 2
+frames = ExtResource( 6 )
+frame = 27
+playing = true
+
+[node name="Tool" type="Node2D" parent="."]
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 15 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -20.0
+
+[node name="AudioStreamPlayer_Damage1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+pitch_scale = 0.66
+bus = "Actions"
+
+[node name="AudioStreamPlayer_Damage2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+bus = "Actions"
+
+[node name="AudioStreamPlayer_Step1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -30.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AudioStreamPlayer_Step1"]
+anims/step = SubResource( 16 )

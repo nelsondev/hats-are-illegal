@@ -1,0 +1,17 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/Resource.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/resource/cactus.png" type="Texture" id=2]
+[ext_resource path="res://audio/sounds/chop.wav" type="AudioStream" id=4]
+[ext_resource path="res://audio/sounds/leaves.wav" type="AudioStream" id=5]
+[ext_resource path="res://audio/sounds/crack.wav" type="AudioStream" id=6]
+
+[node name="Cactus" type="Node2D"]
+
+[node name="Resource" parent="." instance=ExtResource( 1 )]
+RESOURCE_NAME = "Cactus"
+RESOURCE_HEALTH = 2
+RESOURCE_DROP = Vector2( 0, 0 )
+RESOURCE_TEXTURES = [ ExtResource( 2 ) ]
+RESOURCE_HIT_SOUNDS = [ ExtResource( 4 ), ExtResource( 5 ) ]
+RESOURCE_BREAK_SOUNDS = [ ExtResource( 6 ) ]

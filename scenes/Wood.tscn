@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/singletons/Item.gd" type="Script" id=1]
+[ext_resource path="res://assets/resource/wood.png" type="Texture" id=2]
+[ext_resource path="res://audio/sounds/pop.wav" type="AudioStream" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 4.87321
+
+[node name="Wood" type="Area2D" groups=[
+"item",
+]]
+script = ExtResource( 1 )
+NAME = "wood"
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -10.0
+
+[connection signal="body_entered" from="." to="." method="_on_Wood_body_entered"]

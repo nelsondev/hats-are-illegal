@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/rough.wav-d4dba20e2646be95051ef7686a74c45d.sample"
+
+[deps]
+
+source_file="res://audio/sounds/rough.wav"
+dest_files=[ "res://.import/rough.wav-d4dba20e2646be95051ef7686a74c45d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

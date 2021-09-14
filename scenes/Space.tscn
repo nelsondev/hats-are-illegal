@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/Background.gd" type="Script" id=1]
+[ext_resource path="res://assets/interface/space.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "rotate"
+length = 500.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 499.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[node name="space" type="Sprite"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/rotate = SubResource( 1 )

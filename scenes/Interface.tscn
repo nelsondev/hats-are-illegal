@@ -1,0 +1,898 @@
+[gd_scene load_steps=97 format=2]
+
+[ext_resource path="res://assets/resource/stone.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Interface.gd" type="Script" id=2]
+[ext_resource path="res://assets/resource/wood.png" type="Texture" id=3]
+[ext_resource path="res://assets/interface/hearts.png" type="Texture" id=4]
+[ext_resource path="res://assets/interface/itembox.png" type="Texture" id=5]
+[ext_resource path="res://assets/Minecraftia-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/resource/slime.png" type="Texture" id=7]
+[ext_resource path="res://assets/interface/vignette.png" type="Texture" id=8]
+[ext_resource path="res://assets/interface/itembox_selected.png" type="Texture" id=9]
+[ext_resource path="res://assets/transparent.png" type="Texture" id=10]
+[ext_resource path="res://assets/resource/iron.png" type="Texture" id=11]
+[ext_resource path="res://assets/interface/loading.png" type="Texture" id=12]
+[ext_resource path="res://assets/interface/craft/background_asset1.png" type="Texture" id=13]
+[ext_resource path="res://assets/interface/craft/background_black.png" type="Texture" id=14]
+[ext_resource path="res://assets/interface/craft/button_close.png" type="Texture" id=15]
+[ext_resource path="res://scripts/Player_Interface.gd" type="Script" id=16]
+[ext_resource path="res://assets/resource/camp.png" type="Texture" id=17]
+[ext_resource path="res://assets/player/player.png" type="Texture" id=18]
+[ext_resource path="res://scenes/player/Hat.tscn" type="PackedScene" id=19]
+[ext_resource path="res://assets/interface/fire_1.png" type="Texture" id=20]
+[ext_resource path="res://assets/interface/fire_2.png" type="Texture" id=21]
+[ext_resource path="res://assets/resource/camp0.png" type="Texture" id=22]
+[ext_resource path="res://assets/interface/craft/button.png" type="Texture" id=23]
+[ext_resource path="res://assets/interface/craft/button_disabled.png" type="Texture" id=24]
+[ext_resource path="res://assets/interface/craft/axe.png" type="Texture" id=25]
+[ext_resource path="res://assets/tools/axe.png" type="Texture" id=26]
+[ext_resource path="res://audio/sounds/chop.wav" type="AudioStream" id=27]
+[ext_resource path="res://assets/tools/pickaxe.png" type="Texture" id=28]
+[ext_resource path="res://assets/interface/craft/pickaxe.png" type="Texture" id=29]
+[ext_resource path="res://assets/interface/craft/prices_background.png" type="Texture" id=30]
+[ext_resource path="res://assets/interface/craft/particle.png" type="Texture" id=31]
+[ext_resource path="res://assets/interface/craft/sword.png" type="Texture" id=32]
+[ext_resource path="res://assets/tools/sword.png" type="Texture" id=33]
+[ext_resource path="res://assets/tools/shield.png" type="Texture" id=34]
+[ext_resource path="res://assets/interface/craft/shield.png" type="Texture" id=35]
+[ext_resource path="res://scripts/Menu_Crafting.gd" type="Script" id=36]
+[ext_resource path="res://assets/interface/craft/cursor.png" type="Texture" id=37]
+[ext_resource path="res://audio/sounds/book.wav" type="AudioStream" id=38]
+[ext_resource path="res://audio/sounds/open.wav" type="AudioStream" id=39]
+[ext_resource path="res://audio/sounds/button-click.wav" type="AudioStream" id=40]
+[ext_resource path="res://audio/sounds/ting.wav" type="AudioStream" id=41]
+[ext_resource path="res://audio/sounds/pop.wav" type="AudioStream" id=42]
+[ext_resource path="res://assets/interface/inverted_light.png" type="Texture" id=43]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform sampler2D vignette;
+
+void fragment() {
+	vec3 vignette_color = texture(vignette, UV).rgb;
+	// Screen texture stores gaussian blurred copies on mipmaps.
+	COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, (1.0 - vignette_color.r) * 4.0).rgb;
+	COLOR.rgb *= texture(vignette, UV).rgb;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/vignette = ExtResource( 8 )
+
+[sub_resource type="AnimatedTexture" id=3]
+frame_0/texture = ExtResource( 4 )
+
+[sub_resource type="Animation" id=4]
+length = 10.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Heart1:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 5.333, 5.333 ), Vector2( 5.333, 6.333 ), Vector2( 5.333, 5.333 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Heart2:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 16, 5.33333 ), Vector2( 16, 6.333 ), Vector2( 16, 5.333 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Heart3:position")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.2, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 26.6667, 5.33333 ), Vector2( 26.667, 6.333 ), Vector2( 26.667, 5.333 ) ]
+}
+
+[sub_resource type="DynamicFont" id=5]
+size = 4
+font_data = ExtResource( 6 )
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -4.03554, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+gravity = Vector3( 0, -25, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 2.0
+linear_accel_random = 1.0
+radial_accel = 10.0
+scale = 1.2
+scale_curve = SubResource( 7 )
+
+[sub_resource type="Curve" id=9]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -4.30091, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+curve = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+gravity = Vector3( 0, -25, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 2.0
+linear_accel_random = 1.0
+radial_accel = 10.0
+scale_curve = SubResource( 10 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 18 )
+region = Rect2( 8, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 18 )
+region = Rect2( 16, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 18 )
+region = Rect2( 24, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 18 )
+region = Rect2( 32, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 18 )
+region = Rect2( 40, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 18 )
+region = Rect2( 48, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 18 )
+region = Rect2( 56, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 18 )
+region = Rect2( 64, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 18 )
+region = Rect2( 72, 0, 8, 8 )
+
+[sub_resource type="SpriteFrames" id=23]
+animations = [ {
+"frames": [ SubResource( 12 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+}, {
+"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "walk",
+"speed": 15.0
+} ]
+
+[sub_resource type="CircleShape2D" id=24]
+radius = 3.36231
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 0, 12, 11 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 15 )
+region = Rect2( 12, 0, 12, 11 )
+
+[sub_resource type="SpriteFrames" id=27]
+animations = [ {
+"frames": [ SubResource( 25 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 26 ) ],
+"loop": true,
+"name": "clicked",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 23 )
+region = Rect2( 0, 0, 115, 15 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 24 )
+region = Rect2( 0, 0, 115, 15 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 23 )
+region = Rect2( 115, 0, 115, 15 )
+
+[sub_resource type="SpriteFrames" id=31]
+animations = [ {
+"frames": [ SubResource( 28 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 29 ) ],
+"loop": true,
+"name": "disabled",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 30 ) ],
+"loop": true,
+"name": "clicked",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 10, 9 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 4 )
+region = Rect2( 10, 0, 10, 9 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 4 )
+region = Rect2( 20, 0, 10, 9 )
+
+[sub_resource type="SpriteFrames" id=35]
+animations = [ {
+"frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Curve" id=36]
+min_value = -1.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=37]
+curve = SubResource( 36 )
+
+[sub_resource type="Curve" id=38]
+_data = [ Vector2( 0, 0.785227 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=39]
+curve = SubResource( 38 )
+
+[sub_resource type="ParticlesMaterial" id=40]
+emission_shape = 2
+emission_box_extents = Vector3( 18, 1, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, -30, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_curve = SubResource( 39 )
+hue_variation_curve = SubResource( 37 )
+
+[sub_resource type="DynamicFont" id=41]
+size = 6
+font_data = ExtResource( 6 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 256, 144 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 12 )
+region = Rect2( 256, 0, 256, 144 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 12 )
+region = Rect2( 512, 0, 256, 144 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 144, 256, 144 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 12 )
+region = Rect2( 256, 144, 256, 144 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 12 )
+region = Rect2( 512, 144, 256, 144 )
+
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 288, 256, 144 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 12 )
+region = Rect2( 256, 288, 256, 144 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 12 )
+region = Rect2( 512, 288, 256, 144 )
+
+[sub_resource type="SpriteFrames" id=51]
+animations = [ {
+"frames": [ SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Shader" id=52]
+code = "shader_type canvas_item;
+
+uniform float u_amount = 0.1;
+
+float get_noise(vec2 uv) {
+    return fract(sin(dot(uv ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+void fragment() {
+    float n = 2.0 * get_noise(UV + vec2(TIME, 0.0)) - 1.0;
+    COLOR = texture(TEXTURE, UV) + n * u_amount;
+}"
+
+[sub_resource type="ShaderMaterial" id=53]
+shader = SubResource( 52 )
+shader_param/u_amount = 0.1
+
+[node name="Interface" type="CanvasLayer"]
+scale = Vector2( 1.5, 1.5 )
+transform = Transform2D( 1.5, 0, 0, 1.5, 0, 0 )
+script = ExtResource( 2 )
+
+[node name="Vignette" type="TextureRect" parent="."]
+material = SubResource( 2 )
+anchor_right = 0.668
+anchor_bottom = 0.667
+margin_right = -0.00801086
+margin_bottom = -0.0480042
+size_flags_horizontal = 3
+texture = ExtResource( 10 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heart1" type="Sprite" parent="."]
+position = Vector2( 5.33333, 5.33333 )
+texture = SubResource( 3 )
+centered = false
+hframes = 4
+
+[node name="Heart2" type="Sprite" parent="."]
+position = Vector2( 16, 5.333 )
+texture = SubResource( 3 )
+centered = false
+hframes = 4
+
+[node name="Heart3" type="Sprite" parent="."]
+position = Vector2( 26.667, 5.333 )
+texture = SubResource( 3 )
+centered = false
+hframes = 4
+
+[node name="AnimationPlayer_Hearts" type="AnimationPlayer" parent="."]
+anims/bop = SubResource( 4 )
+
+[node name="Boxes" type="Control" parent="."]
+anchor_left = 0.333
+anchor_top = 0.667
+anchor_right = 0.333
+anchor_bottom = 0.667
+margin_left = -85.248
+margin_top = -98.7147
+margin_right = -85.248
+margin_bottom = -98.7147
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="itembox0" type="Sprite" parent="Boxes"]
+position = Vector2( 48, 90.6667 )
+texture = ExtResource( 5 )
+
+[node name="itembox1" type="Sprite" parent="Boxes"]
+position = Vector2( 58.6667, 90.6667 )
+texture = ExtResource( 5 )
+
+[node name="itembox2" type="Sprite" parent="Boxes"]
+position = Vector2( 69.3333, 90.6667 )
+texture = ExtResource( 5 )
+
+[node name="itembox3" type="Sprite" parent="Boxes"]
+position = Vector2( 80, 90.6667 )
+texture = ExtResource( 5 )
+
+[node name="itembox4" type="Sprite" parent="Boxes"]
+position = Vector2( 90.6667, 90.6667 )
+texture = ExtResource( 5 )
+
+[node name="itembox5" type="Sprite" parent="Boxes"]
+position = Vector2( 101.333, 90.6667 )
+texture = ExtResource( 5 )
+
+[node name="itembox6" type="Sprite" parent="Boxes"]
+position = Vector2( 112, 90.6667 )
+texture = ExtResource( 5 )
+
+[node name="itembox7" type="Sprite" parent="Boxes"]
+position = Vector2( 122.667, 90.6667 )
+texture = ExtResource( 5 )
+
+[node name="itembox_selected" type="Sprite" parent="Boxes"]
+position = Vector2( 48, 90.6667 )
+texture = ExtResource( 9 )
+
+[node name="Items" type="Control" parent="."]
+anchor_left = 0.333
+anchor_top = 0.667
+anchor_right = 0.333
+anchor_bottom = 0.667
+margin_left = -85.248
+margin_top = -98.7147
+margin_right = -85.248
+margin_bottom = -98.7147
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="item0" type="Sprite" parent="Items"]
+position = Vector2( 48, 90.6667 )
+
+[node name="item1" type="Sprite" parent="Items"]
+position = Vector2( 58.6667, 90.6667 )
+
+[node name="item2" type="Sprite" parent="Items"]
+position = Vector2( 69.3333, 90.6667 )
+
+[node name="item3" type="Sprite" parent="Items"]
+position = Vector2( 80, 90.6667 )
+
+[node name="item4" type="Sprite" parent="Items"]
+position = Vector2( 90.6667, 90.6667 )
+
+[node name="item5" type="Sprite" parent="Items"]
+position = Vector2( 101.333, 90.6667 )
+
+[node name="item6" type="Sprite" parent="Items"]
+position = Vector2( 112, 90.6667 )
+
+[node name="item7" type="Sprite" parent="Items"]
+position = Vector2( 122.667, 90.6667 )
+
+[node name="Resources" type="Control" parent="."]
+anchor_left = 0.667
+anchor_right = 0.667
+margin_left = -170.752
+margin_right = -170.752
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="wood" type="Sprite" parent="Resources"]
+position = Vector2( 160, 85.3333 )
+scale = Vector2( 0.666664, 0.666667 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Label" type="Label" parent="Resources/wood"]
+margin_left = -12.0
+margin_bottom = 8.0
+custom_fonts/font = SubResource( 5 )
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slime" type="Sprite" parent="Resources"]
+position = Vector2( 160, 77.3333 )
+scale = Vector2( 0.666667, 0.666667 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="Label" type="Label" parent="Resources/slime"]
+margin_left = -12.0
+margin_bottom = 8.0
+custom_fonts/font = SubResource( 5 )
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stone" type="Sprite" parent="Resources"]
+position = Vector2( 160, 69.3333 )
+scale = Vector2( 0.666663, 0.666667 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Label" type="Label" parent="Resources/stone"]
+margin_left = -12.0
+margin_bottom = 8.0
+custom_fonts/font = SubResource( 5 )
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="iron" type="Sprite" parent="Resources"]
+position = Vector2( 160, 61.3333 )
+scale = Vector2( 0.666663, 0.666667 )
+texture = ExtResource( 11 )
+centered = false
+
+[node name="Label" type="Label" parent="Resources/iron"]
+margin_left = -12.0
+margin_bottom = 8.0
+custom_fonts/font = SubResource( 5 )
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu_Crafting" type="Control" parent="."]
+visible = false
+anchor_left = 0.323
+anchor_top = 0.333
+anchor_right = 0.323
+anchor_bottom = 0.333
+margin_left = -81.6952
+margin_top = -47.952
+margin_right = -41.6952
+margin_bottom = -7.952
+rect_scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 36 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="background_black" type="Sprite" parent="Menu_Crafting"]
+position = Vector2( 110.014, 32 )
+scale = Vector2( 2.28571, 1.09804 )
+texture = ExtResource( 14 )
+centered = false
+
+[node name="Sprite" type="Sprite" parent="Menu_Crafting"]
+position = Vector2( 130.667, 56 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 22 )
+
+[node name="Particles2D2" type="Particles2D" parent="Menu_Crafting"]
+position = Vector2( 131.667, 54 )
+scale = Vector2( 2, 2 )
+process_material = SubResource( 8 )
+texture = ExtResource( 21 )
+
+[node name="Particles2D" type="Particles2D" parent="Menu_Crafting"]
+position = Vector2( 130.667, 54 )
+scale = Vector2( 2, 2 )
+process_material = SubResource( 11 )
+texture = ExtResource( 20 )
+
+[node name="Sprite2" type="Sprite" parent="Menu_Crafting"]
+position = Vector2( 130.667, 56 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 17 )
+
+[node name="player_1" type="KinematicBody2D" parent="Menu_Crafting" groups=[
+"damagable",
+"player",
+]]
+position = Vector2( 168, 56 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 16 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Menu_Crafting/player_1"]
+frames = SubResource( 23 )
+playing = true
+
+[node name="Decals" type="Node2D" parent="Menu_Crafting/player_1"]
+
+[node name="Hat" parent="Menu_Crafting/player_1/Decals" instance=ExtResource( 19 )]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menu_Crafting/player_1"]
+shape = SubResource( 24 )
+disabled = true
+
+[node name="background" type="Sprite" parent="Menu_Crafting"]
+position = Vector2( 106.667, 26.6667 )
+texture = ExtResource( 13 )
+centered = false
+
+[node name="Button_0" type="AnimatedSprite" parent="Menu_Crafting"]
+position = Vector2( 216, 32 )
+frames = SubResource( 27 )
+centered = false
+
+[node name="Button_4" type="AnimatedSprite" parent="Menu_Crafting"]
+position = Vector2( 112.7, 132 )
+frames = SubResource( 31 )
+animation = "disabled"
+centered = false
+
+[node name="axe" type="Sprite" parent="Menu_Crafting/Button_4"]
+visible = false
+position = Vector2( 7.98068, 6.66656 )
+texture = ExtResource( 34 )
+
+[node name="axe2" type="Sprite" parent="Menu_Crafting/Button_4"]
+visible = false
+position = Vector2( 81.8702, 3.9999 )
+texture = ExtResource( 35 )
+centered = false
+
+[node name="Button_3" type="AnimatedSprite" parent="Menu_Crafting"]
+position = Vector2( 112.7, 116 )
+frames = SubResource( 31 )
+animation = "disabled"
+centered = false
+
+[node name="axe" type="Sprite" parent="Menu_Crafting/Button_3"]
+visible = false
+position = Vector2( 7.98068, 6.66656 )
+texture = ExtResource( 33 )
+
+[node name="axe2" type="Sprite" parent="Menu_Crafting/Button_3"]
+visible = false
+position = Vector2( 83.9806, 3.99989 )
+texture = ExtResource( 32 )
+centered = false
+
+[node name="Button_2" type="AnimatedSprite" parent="Menu_Crafting"]
+position = Vector2( 112.7, 100 )
+frames = SubResource( 31 )
+centered = false
+
+[node name="axe" type="Sprite" parent="Menu_Crafting/Button_2"]
+position = Vector2( 7.98068, 6.66656 )
+texture = ExtResource( 28 )
+
+[node name="axe2" type="Sprite" parent="Menu_Crafting/Button_2"]
+position = Vector2( 69.314, 3.99989 )
+texture = ExtResource( 29 )
+centered = false
+
+[node name="Button_1" type="AnimatedSprite" parent="Menu_Crafting"]
+position = Vector2( 112.7, 84.0001 )
+frames = SubResource( 31 )
+centered = false
+
+[node name="axe" type="Sprite" parent="Menu_Crafting/Button_1"]
+position = Vector2( 7.98068, 6.66656 )
+texture = ExtResource( 26 )
+
+[node name="axe2" type="Sprite" parent="Menu_Crafting/Button_1"]
+position = Vector2( 90.6473, 3.99989 )
+texture = ExtResource( 25 )
+centered = false
+
+[node name="Hearts" type="AnimatedSprite" parent="Menu_Crafting"]
+position = Vector2( 178.014, 69.3333 )
+scale = Vector2( 1.5, 1.5 )
+frames = SubResource( 35 )
+centered = false
+
+[node name="Hearts2" type="AnimatedSprite" parent="Menu_Crafting"]
+position = Vector2( 192.681, 69.3333 )
+scale = Vector2( 1.5, 1.5 )
+frames = SubResource( 35 )
+centered = false
+
+[node name="Hearts3" type="AnimatedSprite" parent="Menu_Crafting"]
+position = Vector2( 207.348, 69.3333 )
+scale = Vector2( 1.5, 1.5 )
+frames = SubResource( 35 )
+centered = false
+
+[node name="cursor" type="Sprite" parent="Menu_Crafting"]
+position = Vector2( 216.681, 32 )
+rotation = 0.785398
+texture = ExtResource( 37 )
+centered = false
+offset = Vector2( -4, 3 )
+
+[node name="Menu_Prices" type="Control" parent="."]
+visible = false
+anchor_left = 0.323
+anchor_top = 0.333
+anchor_right = 0.323
+anchor_bottom = 0.333
+margin_left = -54.688
+margin_top = -28.6187
+margin_right = -14.688
+margin_bottom = 11.3813
+rect_scale = Vector2( 0.5, 0.5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="background_black" type="Sprite" parent="Menu_Prices"]
+position = Vector2( 185.333, 29.3333 )
+scale = Vector2( 1.06667, 1.4902 )
+texture = ExtResource( 14 )
+centered = false
+
+[node name="Particles2D" type="Particles2D" parent="Menu_Prices"]
+position = Vector2( 205.333, 80 )
+amount = 5
+lifetime = 1.5
+process_material = SubResource( 40 )
+texture = ExtResource( 31 )
+
+[node name="Particles2D2" type="Particles2D" parent="Menu_Prices"]
+position = Vector2( 204, 29.3333 )
+rotation = 3.14159
+amount = 5
+lifetime = 1.5
+process_material = SubResource( 40 )
+texture = ExtResource( 31 )
+
+[node name="prices_background" type="Sprite" parent="Menu_Prices"]
+position = Vector2( 204, 56 )
+texture = ExtResource( 30 )
+
+[node name="Prices" type="Node2D" parent="Menu_Prices"]
+position = Vector2( 41.3333, 29.3333 )
+
+[node name="wood" type="Sprite" parent="Menu_Prices/Prices"]
+position = Vector2( 149.986, 6.66666 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Label" type="Label" parent="Menu_Prices/Prices/wood"]
+show_behind_parent = true
+margin_left = 9.33334
+margin_top = -2.66666
+margin_right = 27.3333
+margin_bottom = 11.3333
+custom_fonts/font = SubResource( 41 )
+text = "999"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="slime" type="Sprite" parent="Menu_Prices/Prices"]
+position = Vector2( 149.986, 17.3333 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="Label" type="Label" parent="Menu_Prices/Prices/slime"]
+show_behind_parent = true
+margin_left = 9.33334
+margin_top = -2.66666
+margin_right = 27.3333
+margin_bottom = 11.3333
+custom_fonts/font = SubResource( 41 )
+text = "999"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stone" type="Sprite" parent="Menu_Prices/Prices"]
+position = Vector2( 149.986, 26.6667 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Label" type="Label" parent="Menu_Prices/Prices/stone"]
+show_behind_parent = true
+margin_left = 9.33334
+margin_top = -2.66666
+margin_right = 27.3333
+margin_bottom = 11.3333
+custom_fonts/font = SubResource( 41 )
+text = "999"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="iron" type="Sprite" parent="Menu_Prices/Prices"]
+position = Vector2( 149.986, 36 )
+texture = ExtResource( 11 )
+centered = false
+
+[node name="Label" type="Label" parent="Menu_Prices/Prices/iron"]
+show_behind_parent = true
+margin_left = 9.33334
+margin_top = -2.66666
+margin_right = 27.3333
+margin_bottom = 11.3333
+custom_fonts/font = SubResource( 41 )
+text = "999"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Loading" type="AnimatedSprite" parent="."]
+visible = false
+scale = Vector2( 0.666667, 0.666667 )
+z_index = 50
+z_as_relative = false
+frames = SubResource( 51 )
+frame = 6
+playing = true
+centered = false
+
+[node name="AudioStreamPlayer_Open" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 38 )
+bus = "Actions"
+
+[node name="AudioStreamPlayer_Open2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 27 )
+bus = "Actions"
+
+[node name="AudioStreamPlayer_Open3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 39 )
+bus = "Actions"
+
+[node name="AudioStreamPlayer_Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 40 )
+bus = "Actions"
+
+[node name="AudioStreamPlayer_Click2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 41 )
+bus = "Actions"
+
+[node name="AudioStreamPlayer_Pop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 42 )
+bus = "Actions"
+
+[node name="Noise" type="TextureRect" parent="."]
+material = SubResource( 53 )
+anchor_left = -0.00260416
+anchor_top = -5.29819e-08
+anchor_right = -0.00260413
+anchor_bottom = -5.29819e-08
+margin_left = 0.666665
+margin_top = 9.53674e-06
+margin_right = 171.666
+margin_bottom = 96.0
+texture = ExtResource( 10 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 88, 45.3333 )
+texture = ExtResource( 43 )
+texture_scale = 2.95
+energy = 3.9
+mode = 1

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/resource/wood.png" type="Texture" id=2]
+
+[node name="Stick" type="Node2D"]
+
+[node name="Item" parent="." instance=ExtResource( 1 )]
+TEXTURE = ExtResource( 2 )
+NAME = "wood"

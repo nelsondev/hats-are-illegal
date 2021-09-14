@@ -1,0 +1,22 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scenes/Resource.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/resource/rock4.png" type="Texture" id=2]
+[ext_resource path="res://scenes/items/Stone.tscn" type="PackedScene" id=3]
+[ext_resource path="res://audio/sounds/chop.wav" type="AudioStream" id=4]
+[ext_resource path="res://audio/sounds/ting.wav" type="AudioStream" id=5]
+[ext_resource path="res://audio/sounds/crack.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/resource/rock.png" type="Texture" id=7]
+[ext_resource path="res://assets/resource/rock2.png" type="Texture" id=8]
+[ext_resource path="res://assets/resource/rock3.png" type="Texture" id=9]
+[ext_resource path="res://audio/sounds/crunch.wav" type="AudioStream" id=10]
+
+[node name="Rock" type="Node2D"]
+
+[node name="Resource" parent="." instance=ExtResource( 1 )]
+RESOURCE_NAME = "Rock"
+RESOURCE_HEALTH = 15
+RESOURCE_TEXTURES = [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 2 ) ]
+RESOURCE_ITEMS = [ ExtResource( 3 ) ]
+RESOURCE_HIT_SOUNDS = [ ExtResource( 4 ), ExtResource( 5 ) ]
+RESOURCE_BREAK_SOUNDS = [ ExtResource( 6 ), ExtResource( 10 ) ]
